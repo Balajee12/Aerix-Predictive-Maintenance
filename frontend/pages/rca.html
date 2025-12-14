@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCA Reports - Aerix</title>
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <meta property="og:title" content="RCA Reports - Aerix">
+    <meta property="og:description" content="Root Cause Analysis Reports with AI insights">
+    <meta property="og:image" content="../../assets/logo.png">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Glassmorphic Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">
+            <img src="../../assets/logo.png" alt="Aerix Logo" class="nav-logo">
+            <span>AERIX</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html" class="nav-link">Home</a></li>
+            <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="voice.html" class="nav-link">AI Assistant</a></li>
+            <li><a href="booking.html" class="nav-link">Booking</a></li>
+            <li><a href="rca.html" class="nav-link active">RCA Reports</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" style="padding-top: 120px;">
+        <h1 class="gradient-text">Root Cause Analysis Reports</h1>
+
+        <div class="card">
+            <h3>Recent RCA Reports</h3>
+            <div id="rcaList" class="rca-list"></div>
+        </div>
+
+        <div class="card rca-report" id="rcaReport" style="display:none;">
+            <div class="rca-header">
+                <h2>RCA Report</h2>
+                <button class="btn btn-secondary" onclick="downloadRCA()">Download PDF</button>
+            </div>
+            
+            <div class="rca-section">
+                <h3>Vehicle Information</h3>
+                <div id="vehicleInfo"></div>
+            </div>
+
+            <div class="rca-section">
+                <h3>Failure Description</h3>
+                <div id="failureDesc"></div>
+            </div>
+
+            <div class="rca-section">
+                <h3>Root Cause</h3>
+                <div id="rootCause"></div>
+            </div>
+
+            <div class="rca-section">
+                <h3>Evidence & Data</h3>
+                <div id="evidence"></div>
+            </div>
+
+            <div class="rca-section">
+                <h3>CAPA (Corrective & Preventive Actions)</h3>
+                <div id="capa"></div>
+            </div>
+
+            <div class="rca-section">
+                <h3>Manufacturing Insights</h3>
+                <div id="insights"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/agents/rcaAgent.js"></script>
+    <script>
+        loadRCAReports();
+    </script>
+</body>
+</html>

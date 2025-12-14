@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Aerix</title>
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <meta property="og:title" content="Dashboard - Aerix">
+    <meta property="og:description" content="Vehicle Fleet Dashboard - Monitor your vehicles with AI-powered insights">
+    <meta property="og:image" content="../../assets/logo.png">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Glassmorphic Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">
+            <img src="../../assets/logo.png" alt="Aerix Logo" class="nav-logo">
+            <span>AERIX</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html" class="nav-link">Home</a></li>
+            <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+            <li><a href="voice.html" class="nav-link">AI Assistant</a></li>
+            <li><a href="booking.html" class="nav-link">Booking</a></li>
+            <li><a href="rca.html" class="nav-link">RCA Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title gradient-text">Vehicle Fleet Dashboard</h1>
+                <div class="dashboard-status">
+                    <div class="status-indicator online">
+                        <div class="status-dot"></div>
+                        <span>System Online</span>
+                    </div>
+                    <div class="last-update">Last updated: <span id="lastUpdate">--</span></div>
+                </div>
+            </div>
+            
+            <!-- Animated Vehicle Icon -->
+            <div class="dashboard-vehicle">
+                <svg class="vehicle-icon" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 60 L40 40 L160 40 L180 60 L180 70 L160 70 L160 80 L140 80 L140 70 L60 70 L60 80 L40 80 L40 70 L20 70 Z" 
+                          fill="url(#dashVehicleGradient)" stroke="#00ffff" stroke-width="2" class="dash-vehicle-body"/>
+                    <circle cx="50" cy="75" r="10" fill="#1a1a2e" stroke="#00ffff" stroke-width="2" class="dash-wheel"/>
+                    <circle cx="150" cy="75" r="10" fill="#1a1a2e" stroke="#00ffff" stroke-width="2" class="dash-wheel"/>
+                    
+                    <!-- Health Indicators -->
+                    <circle cx="60" cy="50" r="3" fill="#4ecdc4" class="health-indicator good">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="100" cy="45" r="3" fill="#f39c12" class="health-indicator warning">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="140" cy="50" r="3" fill="#e74c3c" class="health-indicator critical">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <defs>
+                        <linearGradient id="dashVehicleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00ffff;stop-opacity:0.8"/>
+                            <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:0.8"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Alert Banner -->
+        <div class="alert-banner glass" id="alertBanner" style="display:none;">
+            <div class="alert-content">
+                <div class="alert-icon">⚠️</div>
+                <span id="alertText"></span>
+            </div>
+            <button class="alert-close" onclick="dismissAlert()">×</button>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Vehicle List Card -->
+            <div class="dashboard-card glass">
+                <div class="card-header">
+                    <h3>🚗 Vehicle Fleet</h3>
+                    <div class="card-badge" id="vehicleCount">0</div>
+                </div>
+                <div class="card-content">
+                    <div id="vehicleList" class="vehicle-list"></div>
+                </div>
+            </div>
+
+            <!-- Real-Time Telemetry Card -->
+            <div class="dashboard-card glass">
+                <div class="card-header">
+                    <h3>📊 Real-Time Telemetry</h3>
+                    <div class="telemetry-status">
+                        <div class="status-dot live"></div>
+                        <span>Live</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <canvas id="telemetryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- System Health Card -->
+            <div class="dashboard-card glass">
+                <div class="card-header">
+                    <h3>💚 System Health</h3>
+                </div>
+                <div class="card-content">
+                    <div class="health-metrics">
+                        <div class="health-metric">
+                            <div class="metric-icon">🔋</div>
+                            <div class="metric-info">
+                                <div class="metric-label">ML Model</div>
+                                <div class="metric-value good">92% Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="health-metric">
+                            <div class="metric-icon">📡</div>
+                            <div class="metric-info">
+                                <div class="metric-label">Data Pipeline</div>
+                                <div class="metric-value good">Operational</div>
+                            </div>
+                        </div>
+                        <div class="health-metric">
+                            <div class="metric-icon">🤖</div>
+                            <div class="metric-info">
+                                <div class="metric-label">AI Agents</div>
+                                <div class="metric-value good">6/6 Active</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predictions Card -->
+            <div class="dashboard-card glass">
+                <div class="card-header">
+                    <h3>🔮 AI Predictions</h3>
+                </div>
+                <div class="card-content">
+                    <div class="prediction-summary">
+                        <div class="prediction-stat">
+                            <div class="stat-number" id="totalPredictions">0</div>
+                            <div class="stat-label">Total Predictions</div>
+                        </div>
+                        <div class="prediction-stat">
+                            <div class="stat-number" id="accuracyRate">92</div>
+                            <div class="stat-label">Accuracy %</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Risk Vehicles Table -->
+        <div class="dashboard-card glass full-width">
+            <div class="card-header">
+                <h3>⚠️ High Risk Vehicles</h3>
+                <div class="risk-summary">
+                    <span class="risk-count" id="riskCount">0</span> vehicles need attention
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="table-container">
+                    <table class="risk-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle ID</th>
+                                <th>Risk Score</th>
+                                <th>Component</th>
+                                <th>Time to Failure</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="riskTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        loadDashboard();
+        initAnimations();
+        updateTimestamp();
+        
+        function updateTimestamp() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            setTimeout(updateTimestamp, 30000); // Update every 30 seconds
+        }
+    </script>
+</body>
+</html>

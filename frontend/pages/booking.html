@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking - Aerix</title>
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <meta property="og:title" content="Service Booking - Aerix">
+    <meta property="og:description" content="Schedule your vehicle maintenance with AI-powered system">
+    <meta property="og:image" content="../../assets/logo.png">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Glassmorphic Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-brand">
+            <img src="../../assets/logo.png" alt="Aerix Logo" class="nav-logo">
+            <span>AERIX</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="../index.html" class="nav-link">Home</a></li>
+            <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            <li><a href="voice.html" class="nav-link">AI Assistant</a></li>
+            <li><a href="booking.html" class="nav-link active">Booking</a></li>
+            <li><a href="rca.html" class="nav-link">RCA Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Booking Container -->
+    <div class="booking-container">
+        <div class="booking-header">
+            <h1 class="booking-title gradient-text">Service Booking</h1>
+            <p class="booking-subtitle">Schedule your vehicle maintenance with our AI-powered system</p>
+        </div>
+
+        <div class="booking-layout">
+            <!-- Booking Form -->
+            <div class="booking-form">
+                <!-- Vehicle Selection -->
+                <div class="booking-card glass">
+                    <div class="card-header">
+                        <h3>🚗 Select Vehicle</h3>
+                        <div class="step-indicator">1</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="select-container">
+                            <select id="vehicleSelect" class="glass-select">
+                                <option value="">Choose your vehicle...</option>
+                            </select>
+                            <div class="select-arrow">▼</div>
+                        </div>
+                        <div class="vehicle-preview" id="vehiclePreview" style="display:none;">
+                            <div class="preview-info">
+                                <div class="preview-icon">🚗</div>
+                                <div class="preview-details">
+                                    <div class="preview-id"></div>
+                                    <div class="preview-status"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Selection -->
+                <div class="booking-card glass">
+                    <div class="card-header">
+                        <h3>📅 Select Date</h3>
+                        <div class="step-indicator">2</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="date-container">
+                            <input type="date" id="dateSelect" class="glass-input date-input">
+                            <div class="date-info">
+                                <div class="info-item">
+                                    <span class="info-label">Earliest Available:</span>
+                                    <span class="info-value" id="earliestDate">Tomorrow</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slots -->
+                <div class="booking-card glass">
+                    <div class="card-header">
+                        <h3>⏰ Available Time Slots</h3>
+                        <div class="step-indicator">3</div>
+                    </div>
+                    <div class="card-content">
+                        <div id="timeSlots" class="time-slots-grid"></div>
+                        <div class="slots-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot available"></div>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot selected"></div>
+                                <span>Selected</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot unavailable"></div>
+                                <span>Booked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Type -->
+                <div class="booking-card glass">
+                    <div class="card-header">
+                        <h3>🔧 Service Type</h3>
+                        <div class="step-indicator">4</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="service-options">
+                            <div class="service-option" data-service="predictive">
+                                <div class="option-icon">🤖</div>
+                                <div class="option-info">
+                                    <div class="option-title">Predictive Maintenance</div>
+                                    <div class="option-desc">AI-recommended preventive service</div>
+                                </div>
+                                <div class="option-radio">
+                                    <input type="radio" name="serviceType" value="predictive" id="predictive" checked>
+                                    <label for="predictive"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="routine">
+                                <div class="option-icon">🔍</div>
+                                <div class="option-info">
+                                    <div class="option-title">Routine Service</div>
+                                    <div class="option-desc">Regular maintenance checkup</div>
+                                </div>
+                                <div class="option-radio">
+                                    <input type="radio" name="serviceType" value="routine" id="routine">
+                                    <label for="routine"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="repair">
+                                <div class="option-icon">🔨</div>
+                                <div class="option-info">
+                                    <div class="option-title">Repair Service</div>
+                                    <div class="option-desc">Fix specific issues</div>
+                                </div>
+                                <div class="option-radio">
+                                    <input type="radio" name="serviceType" value="repair" id="repair">
+                                    <label for="repair"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="inspection">
+                                <div class="option-icon">🔎</div>
+                                <div class="option-info">
+                                    <div class="option-title">Inspection</div>
+                                    <div class="option-desc">Comprehensive vehicle check</div>
+                                </div>
+                                <div class="option-radio">
+                                    <input type="radio" name="serviceType" value="inspection" id="inspection">
+                                    <label for="inspection"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Button -->
+                <button class="glass-btn primary booking-btn" id="bookBtn">
+                    <span>Book Appointment</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+
+            <!-- Service Center Map -->
+            <div class="service-center-card glass">
+                <div class="card-header">
+                    <h3>📍 Service Center</h3>
+                </div>
+                <div class="card-content">
+                    <div class="service-center-info">
+                        <div class="center-details">
+                            <h4>Aerix Service Center</h4>
+                            <p>123 Tech Boulevard, Innovation District</p>
+                            <p>Phone: +1 (555) 123-4567</p>
+                            <p>Hours: Mon-Fri 8AM-6PM, Sat 9AM-4PM</p>
+                        </div>
+                        
+                        <div class="center-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">✅</div>
+                                <span>AI Diagnostics</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">✅</div>
+                                <span>Certified Technicians</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">✅</div>
+                                <span>Real-time Updates</span>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">✅</div>
+                                <span>Quality Guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simple SVG Map -->
+                    <div class="service-map">
+                        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Map Background -->
+                            <rect width="300" height="200" fill="rgba(255,255,255,0.1)" rx="10"/>
+                            
+                            <!-- Roads -->
+                            <path d="M0 100 L300 100" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            <path d="M150 0 L150 200" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+                            
+                            <!-- Service Center -->
+                            <circle cx="150" cy="100" r="15" fill="#00ffff" opacity="0.8">
+                                <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <text x="150" y="130" text-anchor="middle" fill="#00ffff" font-size="12">Service Center</text>
+                            
+                            <!-- Location Markers -->
+                            <circle cx="80" cy="60" r="5" fill="#4ecdc4"/>
+                            <circle cx="220" cy="140" r="5" fill="#4ecdc4"/>
+                            <circle cx="100" cy="160" r="5" fill="#4ecdc4"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="booking-modal" id="confirmModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <div class="success-icon">✓</div>
+                <h2>Booking Confirmed!</h2>
+            </div>
+            <div class="modal-body">
+                <div id="confirmDetails"></div>
+                <div class="confirmation-animation">
+                    <div class="checkmark">
+                        <div class="checkmark-circle"></div>
+                        <div class="checkmark-stem"></div>
+                        <div class="checkmark-kick"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="glass-btn primary" onclick="closeModal()">Close</button>
+                <button class="glass-btn secondary" onclick="addToCalendar()">Add to Calendar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/agents/schedulerAgent.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        initBooking();
+        initAnimations();
+    </script>
+</body>
+</html>
