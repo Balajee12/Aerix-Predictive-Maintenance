@@ -352,7 +352,7 @@ The system includes sample data for 5 vehicles:
 
 ## 👥 Team
 
-Built for competition by [Your Team Name]
+Built for competition by AERIX
 
 ## 📄 License
 
